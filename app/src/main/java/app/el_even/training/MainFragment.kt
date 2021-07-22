@@ -30,10 +30,15 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         val adapter = CoinAdapter()
         binding.mainRv.adapter = adapter
-        viewModel.coins.observe(viewLifecycleOwner){ items ->
+        viewModel.coins.observe(viewLifecycleOwner) { items ->
             adapter.submitList(items)
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
     }
 
 }

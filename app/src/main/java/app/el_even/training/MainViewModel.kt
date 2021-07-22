@@ -3,6 +3,7 @@ package app.el_even.training
 import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val application: Application) : ViewModel() {
@@ -11,11 +12,7 @@ class MainViewModel(private val application: Application) : ViewModel() {
 
     val coins: LiveData<List<Item>> = repository.coins.asLiveData()
 
-    init {
-        refresh()
-    }
-
-    private fun refresh() {
+    fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getTrending()
         }
